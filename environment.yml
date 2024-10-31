@@ -1,0 +1,26 @@
+name: gaussiancut_code
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - plyfile
+  - pytorch=2.1.1
+  - torchvision=0.16.1
+  - ffmpeg
+  - numpy
+  - pandas=2.2.2
+  - scipy=1.10.0
+  - scikit-learn==1.3.2
+  - matplotlib
+  - pillow
+  - requests
+  - tqdm
+  - pymaxflow
+  - pip:
+    - opencv-python
+    - torchmetrics>=0.7.0
+    - lightning-utilities>=0.8.0
+    - lxml
+    - gaussian-splatting/submodules/diff-gaussian-rasterization
+    - gaussian-splatting/submodules/simple-knn
