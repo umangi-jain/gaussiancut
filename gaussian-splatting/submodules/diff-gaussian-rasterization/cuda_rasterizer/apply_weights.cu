@@ -363,8 +363,8 @@ __global__ void __launch_bounds__(BLOCK_X *BLOCK_Y) renderCUDA_apply_weights(
         // printf("image_weights %f\n", clr[ch]);
         // atomicAdd(weights + (collected_id[j] * CHANNELS + ch), clr[ch]);
         // atomicAdd(&(weights[collected_id[j] * CHANNELS + ch]), clr[ch]);
-        atomicAdd(&(weights[collected_id[j]]), clr[ch]);
-        atomicAdd(&(cnt[collected_id[j]]), 1);
+        atomicAdd(&(weights[collected_id[j]]), clr[ch] * alpha * T);
+        atomicAdd(&(cnt[collected_id[j]]), alpha * T);
         // atomicAdd(weights + (collected_id[j] * CHANNELS + ch), C[ch] * T);
         // atomicAdd(cnt + collected_id[j], 1);
         // if (image_weights[ch * H * W + pix_id] > 0.0)
