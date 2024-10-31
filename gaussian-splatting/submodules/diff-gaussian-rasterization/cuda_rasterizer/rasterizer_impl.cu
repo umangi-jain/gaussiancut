@@ -444,7 +444,7 @@ void CudaRasterizer::Rasterizer::apply_weights(
     const float *cov3D_precomp, const float *viewmatrix,
     const float *projmatrix, const float *cam_pos, const float tan_fovx,
     float tan_fovy, const bool prefiltered, const float *image_weights,
-    int *radii, int *cnt, const int num_channels, bool debug) {
+    int *radii, float *cnt, const int num_channels, bool debug) {
   const float focal_y = height / (2.0f * tan_fovy);
   const float focal_x = width / (2.0f * tan_fovx);
 

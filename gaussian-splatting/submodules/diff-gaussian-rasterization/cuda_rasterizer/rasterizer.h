@@ -104,7 +104,7 @@ namespace CudaRasterizer
 			const bool prefiltered,
 			const float* out_color,
 			int* radii = nullptr,
-			int* cnt = nullptr,
+			float* cnt = nullptr,
 			const int num_channels = 3,
 			bool debug = false	
 		);

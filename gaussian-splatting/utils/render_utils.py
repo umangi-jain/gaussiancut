@@ -192,13 +192,12 @@ def render_coarse_sets(gaussians, scene, scene_path:str,dataset: ModelParams,
 
         proccessed_images = 0
         weights = torch.zeros_like(gaussians._opacity)
-        weights_cnt = torch.zeros_like(gaussians._opacity, dtype=torch.int32)
+        weights_cnt = torch.zeros_like(gaussians._opacity)
 
         gaussians_for_sink = copy.deepcopy(gaussians)
         gaussians_for_source = copy.deepcopy(gaussians)
         weights_sink = torch.zeros_like(gaussians._opacity)
-        weights_cnt_sink = torch.zeros_like(gaussians._opacity,
-                                            dtype=torch.int32)
+        weights_cnt_sink = torch.zeros_like(gaussians._opacity)
 
         if mask_type == 'spiral':
             interpolate_viewpoint = scene.getSpiralCameras().copy()

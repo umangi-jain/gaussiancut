@@ -228,7 +228,7 @@ void applyWeightsGaussiansCUDA(
     const float tan_fovx, const float tan_fovy, const int image_height,
     const int image_width, const torch::Tensor &sh, const int degree,
     const torch::Tensor &campos, const bool prefiltered,
-    const torch::Tensor &image_weights, torch::Tensor &cnt, const bool debug)
+    const torch::Tensor &image_weights, const torch::Tensor &cnt, const bool debug)
 {
   if (means3D.ndimension() != 2 || means3D.size(1) != 3)
   {
@@ -281,7 +281,7 @@ void applyWeightsGaussiansCUDA(
         projmatrix.contiguous().data<float>(),
         campos.contiguous().data<float>(), tan_fovx, tan_fovy, prefiltered,
         image_weights.contiguous().data<float>(),
-        radii.contiguous().data_ptr<int>(), cnt.contiguous().data_ptr<int>(),
+        radii.contiguous().data_ptr<int>(), cnt.contiguous().data<float>(),
         num_channels, debug);
   }
 }

@@ -258,7 +258,7 @@ __global__ void __launch_bounds__(BLOCK_X *BLOCK_Y) renderCUDA_apply_weights(
     float *__restrict__ final_T, uint32_t *__restrict__ n_contrib,
     const float *__restrict__ bg_color,
     const float *__restrict__ image_weights, // added
-    int *__restrict__ cnt                    // added
+    float *__restrict__ cnt                  // added
 )
 {
   // Identify current tile and associated min/max pixel range.
@@ -359,10 +359,14 @@ __global__ void __launch_bounds__(BLOCK_X *BLOCK_Y) renderCUDA_apply_weights(
       // Eq. (3) from 3D Gaussian splatting paper.
       for (int ch = 0; ch < CHANNELS; ch++)
       {
-        // printf("image_weights = %f %d %d %d\n", clr[ch], collected_id[j] * CHANNELS + ch, j, block.thread_rank());
+        // printf("image_weights = %f %d %d %d\n", clr[ch], collected_id[j], j, weights[collected_id[j]]);
         // printf("image_weights %f\n", clr[ch]);
         // atomicAdd(weights + (collected_id[j] * CHANNELS + ch), clr[ch]);
         // atomicAdd(&(weights[collected_id[j] * CHANNELS + ch]), clr[ch]);
+        // atomicAdd(&(weights[collected_id[j]]), clr[ch] );
+        // atomicAdd(&(cnt[collected_id[j]]), 1);
+
+
         atomicAdd(&(weights[collected_id[j]]), clr[ch] * alpha * T);
         atomicAdd(&(cnt[collected_id[j]]), alpha * T);
         // atomicAdd(weights + (collected_id[j] * CHANNELS + ch), C[ch] * T);
@@ -397,7 +401,7 @@ void APPLY_WEIGHTS::render(const dim3 grid, dim3 block, const uint2 *ranges,
                            const float2 *means2D, float *weights,
                            const float4 *conic_opacity, float *final_T,
                            uint32_t *n_contrib, const float *bg_color,
-                           const float *image_weights, int *cnt,
+                           const float *image_weights, float *cnt,
                            const int num_channels)
 {
   if (num_channels == 1)
